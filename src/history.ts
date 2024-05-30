@@ -11,8 +11,7 @@ app.get("/:class_name", (c) => {
 
 app.post("/add/:class_name", async (c) => {
   const className = decodeURIComponent(c.req.param("class_name"));
-  const queries = await c.req.queries();
-  const { timestamp, total, change, product } = queries;
+  const { timestamp, total, change, product } = await c.req.queries();
   const date = timestamp ? new Date(timestamp[0]) : new Date()
   addHistory(
     crypto.randomUUID(),
