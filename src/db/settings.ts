@@ -1,27 +1,18 @@
+import { Setting } from "../../type.ts";
 import SqliteDatabase from "./SqliteDatabase.ts";
 
 const db = SqliteDatabase();
 
 const getSettingsQuery = db.prepareQuery<
   [string, number, number, number],
-  {
-    "class_name": string;
-    "goal": number;
-    "reserve": number;
-    "additionalreserve": number;
-  },
+  Setting,
   { class_name: string }
 >(`SELECT * FROM setting WHERE class_name = :class_name`);
 
 const setSettingsQuery = db.prepareQuery<
   [],
   Record<never, never>,
-  {
-    "class_name": string;
-    "goal": number;
-    "reserve": number;
-    "additionalreserve": number;
-  }
+  Setting
 >(`INSERT INTO setting (class_name, goal, reserve, additionalreserve) VALUES (:class_name, :goal, :reserve, :additionalreserve)
   ON CONFLICT(class_name) DO UPDATE SET (goal, reserve, additionalreserve) = (:goal, :reserve, :additionalreserve)`);
 
