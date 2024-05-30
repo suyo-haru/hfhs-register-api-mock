@@ -36,7 +36,3 @@ export function setSettings(
   })
   console.log("Set settings: " + class_name);
 };
-
-if(import.meta.main) {
-  setSettings("2年15組")
-}

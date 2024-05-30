@@ -1,8 +1,8 @@
-import { Context, Env } from "hono";
+import { Context } from "hono";
 import { HTTPException } from "hono/http-exception";
 import { jwtDecrypt } from "jose";
 import { Input } from "hono/types";
-import { JwtVariables } from "jsr:@hono/hono@^4.4.0/jwt";
+import { JwtVariables } from "hono/jwt";
 
 async function hkdf(digest = "SHA-256", ikm: BufferSource, salt: BufferSource, info: BufferSource, keylen: number) {
     return new Uint8Array(await crypto.subtle.deriveBits({
