@@ -1,3 +1,6 @@
+# hfhs-register-api-mock
+
+## 実行
 ```
-deno task start
+deno serve -A main.ts
 ```
