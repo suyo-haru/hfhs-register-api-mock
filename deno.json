@@ -2,7 +2,8 @@
   "imports": {
     "hono": "jsr:@hono/hono@^4.4.0",
     "jose": "https://deno.land/x/jose@v5.3.0/index.ts",
-    "sqlite3": "https://deno.land/x/sqlite@v3.8/mod.ts"
+    "sqlite3": "https://deno.land/x/sqlite@v3.8/mod.ts",
+    "zod": "https://deno.land/x/zod@v3.23.8/mod.ts"
   },
   "tasks": {
     "start": "deno serve main.ts"
