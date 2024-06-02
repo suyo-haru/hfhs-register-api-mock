@@ -11,7 +11,7 @@ app.get("/", (c) => {
   return c.json(getUserInfo(payload.email));
 });
 
-app.get("/add",
+app.post("/add",
   zValidator("json", UserSchema),
   (c) => {
     return c.json(addUserInfo(c.req.valid("json")));
