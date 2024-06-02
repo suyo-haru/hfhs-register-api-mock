@@ -11,7 +11,7 @@ app.get(
   classNameParamValidator(),
   async (c) => {
     const className = decodeURIComponent(c.req.param("class_name"));
-    return c.json(await db.getSettings(className) ?? {});
+    return c.json(await db.getSettings(className) ?? { class_name: className });
   },
 );
 
