@@ -2,7 +2,7 @@ import { DB } from "sqlite3";
 
 let db: DB;
 
-export default function SqliteDatabase(path: string = "hfhs-regi.sqlite3") {
+export default function SqliteDatabase(path: string = ":memory:") {
   if (!db) {
     db = new DB(path);
     db.execute(
