@@ -6,15 +6,15 @@ import { zValidator } from "../util.ts";
 
 const app = new Hono<{ Variables: JwtVariables }>();
 
-app.get("/", (c) => {
+app.get("/", async (c) => {
   const payload = c.get("jwtPayload");
-  return c.json(db.getUserInfo(payload.email));
+  return c.json(await db.getUserInfo(payload.email));
 });
 
 app.post("/add",
   zValidator("json", UserSchema),
-  (c) => {
-    return c.json(db.addUserInfo(c.req.valid("json")));
+  async (c) => {
+    return c.json(await db.addUserInfo(c.req.valid("json")));
   }
 );
 
