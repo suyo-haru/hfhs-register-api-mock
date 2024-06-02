@@ -1,7 +1,7 @@
-import { History } from "../../type.ts";
-import SqliteDatabase from "./SqliteDatabase.ts";
+import { History } from "../../../type.ts";
+import initSqliteDB from "../sqlite/SqliteDatabase.ts";
 
-const db = SqliteDatabase();
+const db = initSqliteDB();
 const listHistoryQuery = db.prepareQuery<
   [string, string, string, number, number, string],
   History,
@@ -17,12 +17,9 @@ const addHistoryQuery = db.prepareQuery<
 >(`INSERT INTO history (payment_id, timestamp, paid_class, total, change, product) VALUES (:payment_id, :timestamp, :paid_class, :total, :change, :product)`);
 
 export function addHistory(
-  payment_id: string,
-  timestamp: Date,
-  class_name: string,
-  total: number,
-  change: number,
-  product: string,
+  { payment_id, timestamp, paid_class: class_name, total, change, product }:
+    & Omit<History, "timestamp">
+    & { timestamp: Date },
 ) {
   addHistoryQuery.execute({
     payment_id,

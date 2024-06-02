@@ -1,7 +1,7 @@
-import { Setting } from "../../type.ts";
-import SqliteDatabase from "./SqliteDatabase.ts";
+import { Setting } from "../../../type.ts";
+import initSqliteDB from "./SqliteDatabase.ts";
 
-const db = SqliteDatabase();
+const db = initSqliteDB();
 
 const getSettingsQuery = db.prepareQuery<
   [string, number, number, number],
@@ -23,16 +23,15 @@ export function getSettings(class_name: string) {
 }
 
 export function setSettings(
-  class_name: string,
-  goal?: number | undefined,
-  reserve?: number | undefined,
-  additionalreserve?: number | undefined,
+  { class_name, goal, reserve, additionalreserve }: Partial<Setting> & {
+    class_name: string;
+  },
 ) {
   setSettingsQuery.execute({
     class_name,
     goal: goal ?? 0,
     reserve: reserve ?? 0,
-    additionalreserve: additionalreserve ?? 0
-  })
+    additionalreserve: additionalreserve ?? 0,
+  });
   console.log("Set settings: " + class_name);
-};
+}

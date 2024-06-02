@@ -1,7 +1,7 @@
-import { User } from "../../type.ts";
-import SqliteDatabase from "./SqliteDatabase.ts";
+import { User } from "../../../type.ts";
+import initSqliteDB from "./SqliteDatabase.ts";
 
-const db = SqliteDatabase();
+const db = initSqliteDB();
 const query = db.prepareQuery<
   [string, string, string, string],
   User,
