@@ -32,7 +32,3 @@ app.route("/history", history);
 app.route("/setting", settings);
 
 export default app;
-
-if(import.meta.main) {
-  Deno.serve(app.fetch);
-}
