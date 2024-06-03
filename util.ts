@@ -10,7 +10,6 @@ import type {
   UnknownKeysParam,
   ZodObject,
   ZodRawShape,
-  ZodSchema,
   ZodTypeAny,
 } from "zod";
 import { ClassNameParamSchema } from "./schema.ts";
@@ -62,7 +61,7 @@ export async function getAutenticate(
     try {
       const { payload } = await jwtDecrypt(
         jwt,
-        await getDerivedEncryptionKey(),
+        await getDerivedEncryptionKey(Deno.env.get("JWT_SECRET")),
         {
           clockTolerance: 15,
         },
