@@ -71,8 +71,8 @@ export async function getAutenticate(
       } else {
         throw new HTTPException(403, { message: "Unauthorized" });
       }
-    } catch (e) {
-      throw e;
+    } catch {
+      throw new HTTPException(403, { message: "Unauthorized", res: c.json({message: "jwtDecription failed."})})
     }
   } else {
     c.status(401);

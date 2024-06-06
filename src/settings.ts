@@ -3,6 +3,7 @@ import type { JwtVariables } from "hono/jwt";
 import db from "./db/Database.ts";
 import { SetSettingQuerySchema } from "../schema.ts";
 import { classNameParamValidator, zValidator } from "../util.ts";
+import { HTTPException } from "jsr:@hono/hono@^4.4.0/http-exception";
 
 const app = new Hono<{ Variables: JwtVariables }>();
 
@@ -11,7 +12,9 @@ app.get(
   classNameParamValidator(),
   async (c) => {
     const className = decodeURIComponent(c.req.param("class_name"));
-    return c.json(await db.getSettings(className) ?? { class_name: className });
+    const settings = await db.getSettings(className);
+    if(!settings) throw new HTTPException(404, {message: `"${className}" is not found.`})
+    return c.json(settings);
   },
 );
 
